@@ -1,0 +1,54 @@
+### Common
+---
+server:
+  port: 8000
+  error:
+    include-message: always
+#  servlet:
+#    context-path: /api/*
+
+spring:
+  application:
+    name: hunger-heroes
+  profiles:
+    active: pgsql
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: classpath:db.changelog/db.changelog-master.yml
+    default-schema: public
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    root: INFO
+---
+
+---
+
+### PgSQL profile
+
+spring:
+  profiles: pgsql
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/hunger-heroes}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:12211221}
+
+---
+
+grokonez:
+  app:
+    jwtSecret: jwtGrokonezhunger-heroesJwt
+    jwtExpiration: 2100000
