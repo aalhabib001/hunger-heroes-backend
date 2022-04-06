@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SignUpForm {
 
-    private String phone;
+    private String phoneNo;
 
     private String password;
 
