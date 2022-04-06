@@ -19,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class FoodShareService {
@@ -85,5 +87,15 @@ public class FoodShareService {
         foodShareRepository.save(foodShareModel);
 
         return new ResponseEntity<>(new ApiMessageResponse(200, "Food Share deleted successfully"), HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<FoodShareModel>> getOwnFoodShare() {
+        String userName = AuthUtils.getUserName();
+        UserModel userModel = userRepository.findByUsername(userName)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        List<FoodShareModel> foodShareModelList = foodShareRepository.findAllByUserModelAndIsDeleted(userModel, false);
+
+        return new ResponseEntity<>(foodShareModelList, HttpStatus.OK);
     }
 }

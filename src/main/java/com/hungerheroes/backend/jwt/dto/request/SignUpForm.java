@@ -1,5 +1,6 @@
 package com.hungerheroes.backend.jwt.dto.request;
 
+import com.hungerheroes.backend.dto.request.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +17,7 @@ public class SignUpForm {
     private String name;
 
     private String userName;
+
+    private UserType userType;
 
 }

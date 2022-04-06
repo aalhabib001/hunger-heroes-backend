@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/food-share")
@@ -42,5 +44,10 @@ public class FoodShareController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiMessageResponse> deleteFoodShare(@PathVariable("id") Long id) {
         return foodShareService.deleteFoodShare(id);
+    }
+
+    @GetMapping("/own")
+    public ResponseEntity<List<FoodShareModel>> getOwnFoodShare() {
+        return foodShareService.getOwnFoodShare();
     }
 }

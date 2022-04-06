@@ -14,4 +14,6 @@ public class FoodShareRequest {
     private String address;
 
     private String phoneNo;
+
+    private String imageLink;
 }

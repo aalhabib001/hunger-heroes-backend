@@ -36,4 +36,14 @@ public class OrganizationController {
         return organizationService.deleteOrganization(id);
     }
 
+    @GetMapping("/own")
+    public ResponseEntity<OrganizationModel> getOwnOrganization() {
+        return organizationService.getOwnOrganization();
+    }
+
+    @PutMapping("/own")
+    public ResponseEntity<ApiMessageResponse> editOwnOrg(@RequestBody OrganizationRequest organizationRequest) {
+        return organizationService.editOwnOrg(organizationRequest);
+    }
+
 }

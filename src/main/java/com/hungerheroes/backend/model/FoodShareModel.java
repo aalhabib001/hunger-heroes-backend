@@ -28,4 +28,6 @@ public class FoodShareModel extends BaseEntity {
 
     private Boolean isApproved;
 
+    private String imageLink;
+
 }

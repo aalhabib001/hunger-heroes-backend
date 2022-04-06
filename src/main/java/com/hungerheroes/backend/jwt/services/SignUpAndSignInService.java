@@ -44,7 +44,7 @@ public class SignUpAndSignInService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is already taken!");
 
         Set<String> rolesString = new HashSet<>();
-        rolesString.add("USER");
+        rolesString.add(signUpRequest.getUserType().toString());
 
         UserModel userModel = UserModel.builder()
                 .name(signUpRequest.getName())
