@@ -20,7 +20,7 @@ import java.util.List;
 
 @Configuration
 @EnableSwagger2
-public class SpringFoxConfig {
+public class SpringFoxSwaggerConfig {
 
     private List<Parameter> operationParameters() {
         List<Parameter> headers = new ArrayList<>();
