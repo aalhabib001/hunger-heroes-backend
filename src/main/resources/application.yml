@@ -44,7 +44,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/hunger-heroes}
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:11111111}
+    password: ${DB_PASSWORD:12211221}
 
 ---
 
