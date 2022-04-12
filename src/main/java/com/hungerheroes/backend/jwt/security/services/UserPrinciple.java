@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class UserPrinciple implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private final String id;
+    private final Long id;
 
     private final String username;
 

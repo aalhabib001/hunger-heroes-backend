@@ -5,7 +5,6 @@ import com.hungerheroes.backend.jwt.dto.request.LoginForm;
 import com.hungerheroes.backend.jwt.dto.request.PassChangeRequest;
 import com.hungerheroes.backend.jwt.dto.request.SignUpForm;
 import com.hungerheroes.backend.jwt.dto.response.JwtResponse;
-import com.hungerheroes.backend.jwt.dto.response.ProfileResponse;
 import com.hungerheroes.backend.jwt.model.Role;
 import com.hungerheroes.backend.jwt.model.RoleName;
 import com.hungerheroes.backend.jwt.model.UserModel;
@@ -38,18 +37,22 @@ public class SignUpAndSignInService {
     private final RoleRepository roleRepository;
 
     public ResponseEntity<ApiResponse<String>> signUp(SignUpForm signUpRequest) throws ValidationException {
-        String phone = signUpRequest.getPhone();
+
+        if (userRepository.existsByUsername(signUpRequest.getUserName()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is already taken!");
 
         Set<String> rolesString = new HashSet<>();
-        rolesString.add("USER");
+        rolesString.add(signUpRequest.getUserType().toString());
 
         UserModel userModel = UserModel.builder()
-                .id(UUID.randomUUID().toString())
+                .name(signUpRequest.getName())
+                .phoneNo(signUpRequest.getPhoneNo())
                 .username(signUpRequest.getUserName())
                 .roles(getRolesFromStringRoles(rolesString))
                 .password(encoder.encode(signUpRequest.getPassword()))
                 .build();
 
+        userModel.setUuid(UUID.randomUUID().toString());
         userRepository.saveAndFlush(userModel);
 
         return new ResponseEntity<>(new ApiResponse<String>(201, "Account Created", null), HttpStatus.CREATED);
