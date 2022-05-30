@@ -51,4 +51,9 @@ public class FoodShareController {
     public ResponseEntity<List<FoodShareModel>> getOwnFoodShare() {
         return foodShareService.getOwnFoodShare();
     }
+
+    @PostMapping("/{food-id}/confirm")
+    public ResponseEntity<ApiMessageResponse> confirmFood(@PathVariable("food-id") Long foodId){
+        return foodShareService.confirmFood(foodId);
+    }
 }

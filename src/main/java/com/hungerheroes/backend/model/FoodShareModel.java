@@ -30,4 +30,8 @@ public class FoodShareModel extends BaseEntity {
 
     private String imageLink;
 
+    private Boolean isConfirmed;
+
+    private String confirmedBy;
+
 }

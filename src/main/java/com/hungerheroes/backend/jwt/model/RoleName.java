@@ -4,5 +4,6 @@ public enum RoleName {
     SUPER_ADMIN,
     ADMIN,
     ORGANIZATION,
+    VOLUNTEER,
     USER
 }

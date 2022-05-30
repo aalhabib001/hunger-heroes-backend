@@ -98,4 +98,19 @@ public class FoodShareService {
 
         return new ResponseEntity<>(foodShareModelList, HttpStatus.OK);
     }
+
+    public ResponseEntity<ApiMessageResponse> confirmFood(Long foodId) {
+        FoodShareModel foodShareModel = foodShareRepository.findById(foodId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No Food Found with id" + foodId));
+        if (foodShareModel.getIsConfirmed() != null && foodShareModel.getIsConfirmed())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sorry, This food is already confirmed");
+
+        String userName = AuthUtils.getUserName();
+        foodShareModel.setIsConfirmed(true);
+        foodShareModel.setConfirmedBy(userName);
+
+        foodShareRepository.save(foodShareModel);
+
+        return new ResponseEntity<>(new ApiMessageResponse(200, "Food Confirmed"), HttpStatus.OK);
+    }
 }

@@ -5,13 +5,16 @@ import com.hungerheroes.backend.jwt.dto.request.LoginForm;
 import com.hungerheroes.backend.jwt.dto.request.PassChangeRequest;
 import com.hungerheroes.backend.jwt.dto.request.SignUpForm;
 import com.hungerheroes.backend.jwt.dto.response.JwtResponse;
+import com.hungerheroes.backend.jwt.dto.response.ProfileResponse;
 import com.hungerheroes.backend.jwt.model.Role;
 import com.hungerheroes.backend.jwt.model.RoleName;
 import com.hungerheroes.backend.jwt.model.UserModel;
 import com.hungerheroes.backend.jwt.repository.RoleRepository;
 import com.hungerheroes.backend.jwt.repository.UserRepository;
 import com.hungerheroes.backend.jwt.security.jwt.JwtProvider;
+import com.hungerheroes.backend.utils.AuthUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -178,6 +181,18 @@ public class SignUpAndSignInService {
             roles.add(role.getName().toString());
         }
         return roles;
+    }
+
+    public ResponseEntity<ApiResponse<ProfileResponse>> getLoggedUserProfile(String jwtToken) {
+        String userName = AuthUtils.getUserName();
+
+        UserModel user = userRepository.findByUsername(userName)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No Profile Found"));
+
+        ProfileResponse profile = new ProfileResponse();
+        BeanUtils.copyProperties(user, profile);
+
+        return new ResponseEntity<>(new ApiResponse<>(200, "Profile Found", profile), HttpStatus.OK);
     }
 
 

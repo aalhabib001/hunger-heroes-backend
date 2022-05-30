@@ -11,20 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProfileResponse {
 
-    private String userName;
-
-    private String email;
-
-    private String name;
+    private String username;
 
     private String phoneNo;
 
-    private String address;
-
-    private String dateOfBirth;
-
-    private String thana;
-
-    private String district;
+    private String name;
 
 }
